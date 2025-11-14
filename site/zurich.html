@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Dashboards | Zurich</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+<script>
+  fetch("navbar.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("navbar").innerHTML = html);
+</script>
+
+<div class="content">
+  <h1>Zurich</h1>
+
+  <p class="lead">
+    Monitoramento estratégico das operações Zurich, com dashboards focados em produtividade,
+    volumetria, resultados de time e indicadores essenciais para tomada de decisão.
+  </p>
+
+  <!-- CARD 1 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1F07AEI0sSxmh1C5rlxJx6cqVkXYx1wOz=w1920-h1080" alt="Resultados Operacionais Zurich">
+    <div class="card-text">
+      <h2>Resultados Operacionais</h2>
+      <p class="description-project">
+        Painel principal com KPIs diários, volume, produtividade e análise detalhada por operação.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/f2f0a36b-69e8-41ba-a8a2-0a34da734c11/page/pgU" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1xiM3_oWb7ztYz2Yrd-SwQm7qf83TYVU5=w1920-h1080" alt="Produtividade por Analista">
+    <div class="card-text">
+      <h2>Produtividade por Analista</h2>
+      <p class="description-project">
+        Análise individual por atendente, com performance, produção e acompanhamento por líder.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/3003a03c-d62f-43d4-be1a-48d40b1a0277/page/pgU" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1i0749TnMtduIl1st4RWcWgRid4nTUqII=w1920-h1080" alt="Acompanhamento de Filas e Volume">
+    <div class="card-text">
+      <h2>Acompanhamento de Filas & Volume</h2>
+      <p class="description-project">
+        Informações de volumetria, cargas de trabalho e tendências operacionais.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/8f7c0652-79ff-4138-b026-7b4f04aab6d1/page/pgU" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

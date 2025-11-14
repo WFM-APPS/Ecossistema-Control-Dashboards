@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Dashboards | Domo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+<script>
+  fetch("navbar.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("navbar").innerHTML = html);
+</script>
+
+<div class="content">
+  <h1>Domo</h1>
+
+  <p class="lead">
+    Dashboards integrados de todas as áreas, fornecendo métricas estratégicas e operacionais em tempo real.
+    Centralizando informações de vendas, marketing, finanças e performance.
+  </p>
+
+  <!-- CARD 1 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1C6r5c3ZXlK6pFfG3gWfKdB6xkDQm0z0Y=w1920-h1080" alt="Vendas & Performance - Domo">
+    <div class="card-text">
+      <h2>Vendas & Performance</h2>
+      <p class="description-project">
+        Métricas de vendas por produto, região e equipe, evolução diária e acompanhamento de metas.
+      </p>
+      <div class="card-actions">
+        <a href="https://domo.com/dashboard/sales-performance" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1jN7Zx8dA7Rz1q3T2xPjWnR1n5y4A9f6e=w1920-h1080" alt="Marketing Analytics - Domo">
+    <div class="card-text">
+      <h2>Marketing Analytics</h2>
+      <p class="description-project">
+        Análise de campanhas, leads, conversões e ROI, permitindo decisões estratégicas baseadas em dados.
+      </p>
+      <div class="card-actions">
+        <a href="https://domo.com/dashboard/marketing-analytics" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1w3Xz9H2Qk7p4mJ0X8lR5cL6z3Vn9bP2o=w1920-h1080" alt="Finance & KPIs - Domo">
+    <div class="card-text">
+      <h2>Finance & KPIs</h2>
+      <p class="description-project">
+        Visão completa de indicadores financeiros, fluxo de caixa, receitas e despesas, alinhada à estratégia corporativa.
+      </p>
+      <div class="card-actions">
+        <a href="https://domo.com/dashboard/finance-kpis" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Dashboards | Copa Energia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+<script>
+  fetch("navbar.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("navbar").innerHTML = html);
+</script>
+
+<div class="content">
+  <h1>Copa Energia</h1>
+
+  <p class="lead">
+    Dashboards de fluxo operacional, produtividade, volumetria e acompanhamento estratégico das operações
+    Copa Energia — garantindo transparência e monitoramento eficiente dos indicadores.
+  </p>
+
+  <!-- CARD 1 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1OZNSwA_Lj6F9EIvg60bbuoU-ZsGQmg5k=w1920-h1080" alt="Resultados Operacionais - Copa Energia">
+    <div class="card-text">
+      <h2>Resultados Operacionais</h2>
+      <p class="description-project">
+        KPIs principais, volume de atendimento, performance por equipe e visão gerencial detalhada.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/5fd9a6ea-b12b-4bc2-9a67-0199861090f1/page/QdU" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/12m0OZidZW-sOUnc7kwnEHzQ_apdwYfco=w1920-h1080" alt="Produtividade por Time - Copa Energia">
+    <div class="card-text">
+      <h2>Produtividade por Time</h2>
+      <p class="description-project">
+        Acompanhamento individual e por time da produtividade, evolução diária e indicadores de performance.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/0a6710ec-4f8c-4d89-8c32-bfdac0d8f7a0/page/QdU" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1t1BvC5lt4p2u1waGzwUWs2sARbGL3xYK=w1920-h1080" alt="Visão Estratégica - Copa Energia">
+    <div class="card-text">
+      <h2>Visão Estratégica & Tendências</h2>
+      <p class="description-project">
+        Painel com visão macro da operação, variações de volume, picos, tendências e acompanhamento histórico.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/f8f97218-41fe-49f1-a2ca-3f0f7e7f7e2a/page/QdU" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

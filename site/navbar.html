@@ -1,0 +1,56 @@
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="home-link">
+      <img class="nav-icon" src="https://img.icons8.com/?size=100&id=9zcV0gKAozhn&format=png&color=FFFFFF">
+      Home
+    </a>
+  </div>
+
+  <div class="nav-center">
+    <a href="quintoandar.html">
+      <img class="nav-icon-quinto" src="https://lh3.googleusercontent.com/d/1FTVmJwXDds1WnukeDH4vaShIvwYLrMK8=w1920-h1080">
+      Quinto Andar
+    </a>
+
+    <a href="boticario.html">
+      <img class="nav-icon" src="https://lh3.googleusercontent.com/d/12TydZaPgmAYn3Pm3HwWGeAOBb90n72Cf=w1920-h1080">
+      Boticário
+    </a>
+
+    <a href="santander.html">
+      <img class="nav-icon-santander" src="https://lh3.googleusercontent.com/d/1tiJu4td3SfifkJKq7Xj_7-ZaqHImQ8dt=w1920-h1080">
+      Santander
+    </a>
+
+    <a href="zurich.html">
+      <img class="nav-icon-zurich" src="https://lh3.googleusercontent.com/d/1neeXZv0wZ-CmIqIdsxa37xQjxh7I3PMT=w1920-h1080">
+      Zurich
+    </a>
+
+    <a href="copaenergia.html">
+      <img class="nav-icon" src="https://lh3.googleusercontent.com/d/1VFkH8VqAO4l1jzZQe9v3wLDXXAppRZUG=w1920-h1080">
+      Copa Energia
+    </a>
+  </div>
+
+  <div class="nav-left">
+    <a href="domo.html" class="home-link">
+      <img class="nav-icon" src="https://img.icons8.com/?size=100&id=78770&format=png&color=FFFFFF">
+      DOMO
+    </a>
+  </div>
+</nav>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const current = location.pathname.split("/").pop();
+  const links = document.querySelectorAll("nav a");
+
+  links.forEach(link => {
+    if (link.getAttribute("href") === current) {
+      link.style.color = "var(--highlight)";
+      link.style.textShadow = "0 4px 18px rgba(0,0,0,0.45)";
+    }
+  });
+});
+</script>

@@ -1,0 +1,192 @@
+/* ===========================
+  THEME: DARK PREMIUM FS 2025
+  Palette (dark->light):
+  #051f20, #0b2b26, #163832, #235347, #8eb69b, #daf1de
+============================*/
+:root {
+  --bg: #051f20;
+  --surface: #0b2b26;
+  --surface-alt: #163832;
+  --accent: #235347;
+  --highlight: #8eb69b;
+  --text: #daf1de;
+  --button-bg: #daf1de;
+  --button-text: #051f20;
+
+  --nav-height: 76px;
+  --container-padding: 8%;
+  --radius-lg: 18px;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  min-height: 100%;
+  background: linear-gradient(180deg, var(--bg) 0%, rgba(5,31,32,0.9) 60%);
+  color: var(--text);
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+  transition: background 0.6s ease, color 0.6s ease;
+  overflow-x: hidden;
+}
+
+body { opacity: 0; animation: pageFadeIn 0.65s ease forwards 0.06s; }
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(6px); filter: blur(6px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+/* BACKGROUND CANVAS */
+#bgCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.02), transparent 8%),
+              radial-gradient(ellipse at 80% 80%, rgba(255,255,255,0.02), transparent 12%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* NAVBAR */
+nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--nav-height);
+  padding: 14px 56px;
+  background: linear-gradient(90deg, rgba(11,43,38,0.20), rgba(22,56,50,0.10));
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+  box-shadow: 0 8px 30px rgba(2,6,6,0.55);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+.nav-left, .nav-center { display: flex; align-items: center; }
+
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: all .25s ease;
+}
+.home-link img { width: 22px; height: 22px; }
+
+.home-link:hover {
+  transform: translateY(-2px);
+  color: var(--highlight);
+  background: rgba(255,255,255,0.03);
+}
+
+.nav-center { flex: 1; justify-content: center; gap: 28px; }
+
+.nav-center a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 12px;
+  transition: all .25s ease;
+}
+
+.nav-center a:hover {
+  color: var(--highlight);
+  transform: translateY(-3px);
+  text-shadow: 0 4px 18px rgba(0,0,0,0.45);
+}
+
+.nav-icon { width: 50px; height: 50px; }
+.nav-icon-quinto { width: 18px; height: 18px; }
+.nav-icon-santander { width: 20px; height: 20px; }
+.nav-icon-zurich { width: 20px; height: 20px; }
+
+/* CONTENT */
+.content {
+  padding: 64px var(--container-padding);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+p.lead {
+  max-width: 900px;
+  margin: 0 auto 20px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* CARDS */
+.card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  background: rgba(255,255,255,0.02);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.5);
+  margin: 36px 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.card img {
+  width: 460px;
+  max-width: 46%;
+  min-width: 300px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 20px;
+  transition: .4s;
+}
+
+.card-text {
+  padding: 28px 36px;
+  text-align: center;
+  flex: 1;
+}
+
+.card-text h2 {
+  color: var(--highlight);
+}
+
+/* BUTTONS */
+.card-actions a {
+  display: inline-flex;
+  gap: 10px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 880px) {
+  .card img { width: 100%; max-width: 100%; margin: 0; border-radius: 0; }
+}

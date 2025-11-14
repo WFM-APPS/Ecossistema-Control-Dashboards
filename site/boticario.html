@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Dashboards | Boticário</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+<script>
+  fetch("navbar.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("navbar").innerHTML = html);
+</script>
+
+<div class="content">
+  <h1>Boticário</h1>
+
+  <p class="lead">
+    Dashboards de performance operacional, monitoramento de SLAs e indicadores estratégicos
+    que suportam a gestão do atendimento Boticário com precisão e visual moderno.
+  </p>
+
+  <!-- CARD 1 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1gOJQlaUNq_L3s0qkdZBzIYGFVz1FKBjQ=w1920-h1080" alt="Resultados Atendimento">
+    <div class="card-text">
+      <h2>Resultados Atendimento</h2>
+      <p class="description-project">
+        Dashboard completo de acompanhamento operacional: TMA, FCR, CSAT, volume e produção por analista.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/b26f26c5-4094-4521-9d78-0545d18781e3/page/UxR5C" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1RTKXOQ8i2V83oaUoG40GyFESoJ-LJQGZ=w1920-h1080" alt="Produtividade e Qualidade">
+    <div class="card-text">
+      <h2>Produtividade & Qualidade</h2>
+      <p class="description-project">
+        Indicadores essenciais para tomada de decisão, por equipe, operação e líder.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/34462722-177f-4d02-baf0-0aa30554c5ec/page/zJqeC" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1n1ewxNbBlNY-wEPW72dgiI1J6Fx8ZuMA=w1920-h1080" alt="Análises Avançadas">
+    <div class="card-text">
+      <h2>Análises Avançadas</h2>
+      <p class="description-project">
+        Monitoramento aprofundado de comportamento de clientes, volume por categoria e análise temporal.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/6a37e4eb-2f74-4db4-8995-68e4f64225e1/page/t59eC" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

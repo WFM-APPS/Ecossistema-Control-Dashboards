@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Dashboards | Santander</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+<script>
+  fetch("navbar.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("navbar").innerHTML = html);
+</script>
+
+<div class="content">
+  <h1>Santander</h1>
+
+  <p class="lead">
+    Monitoramento completo de performance, qualidade e resultados estratégicos para 
+    a operação Santander, com visão clara e foco em ações de impacto.
+  </p>
+
+  <!-- CARD 1 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1XYOBTxi4iWql1TofKof9_EDmQYV9H9CW=w1920-h1080" alt="Resultados Gerais">
+    <div class="card-text">
+      <h2>Resultados Gerais</h2>
+      <p class="description-project">
+        Dashboard principal com KPIs de qualidade, volume, produtividade, SLA e acompanhamento diário.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/1af0f0c8-b0f6-47f9-b05c-de4c0353d363/page/tp0pC" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1r3K9tJDpCAXljxQs2pR_tPZeuWtiu_W5=w1920-h1080" alt="Qualidade por Analista">
+    <div class="card-text">
+      <h2>Qualidade por Analista</h2>
+      <p class="description-project">
+        Controle detalhado de erros, notas de auditoria e desempenho individual.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/f37c2e9f-c265-41ea-a29a-661d6f5e98ad/page/y00pC" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1p7XO4f2OuxZfS4ZNN1jPHjmYTUxBnMPH=w1920-h1080" alt="Produtividade Equipes">
+    <div class="card-text">
+      <h2>Produtividade por Time</h2>
+      <p class="description-project">
+        Volume, atendimento, eficiência e metas por equipe e líderes.
+      </p>
+      <div class="card-actions">
+        <a href="https://datastudio.google.com/reporting/84e8637c-b343-4fa1-bd8b-a254939c919e/page/qp0pC" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

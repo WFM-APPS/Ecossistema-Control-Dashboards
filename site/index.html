@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Dashboards | Home</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR DINÂMICA -->
+<div id="navbar"></div>
+<script>
+  fetch("navbar.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("navbar").innerHTML = html);
+</script>
+
+<!-- BACKGROUND -->
+<canvas id="bgCanvas"></canvas>
+<div class="bg-overlay"></div>
+
+<div class="content">
+  <h1>Bem-vindo ao Ecossistema<br>Control Dashboards</h1>
+
+  <p class="lead">
+    Acesse facilmente todos os ambientes e dashboards do Grupo Services em um só lugar.
+  </p>
+
+  <div class="home-buttons" style="display:flex; flex-direction:column; gap:20px; align-items:center; margin-top:40px;">
+    
+    <a class="home-btn" style="
+      display:flex; align-items:center; gap:12px;
+      padding:14px 22px; font-size:1.4rem; 
+      background:rgba(255,255,255,0.05); 
+      border-radius:12px; color:var(--text);
+      text-decoration:none; transition:.3s;
+    "
+    href="https://concentrix.domo.com/auth/index?redirectUrl=%2Fapp-studio%2F688935992%2Fpages%2F1740210127">
+      <img src="https://img.icons8.com/?size=100&id=78770&format=png&color=FFFFFF" style="width:42px;">
+      Acessar DOMO ➤
+    </a>
+
+    <a class="home-btn" style="
+      display:flex; align-items:center; gap:12px;
+      padding:14px 22px; font-size:1.4rem; 
+      background:rgba(255,255,255,0.05); 
+      border-radius:12px; color:var(--text);
+      text-decoration:none; transition:.3s;
+    "
+    href="https://dashboards.gruposervices.com.br/ragnamop/auth.html">
+      <img src="https://img.icons8.com/?size=100&id=4221&format=png&color=FFFFFF" style="width:42px;">
+      Acessar Ragna MOP ➤
+    </a>
+
+    <a class="home-btn" style="
+      display:flex; align-items:center; gap:12px;
+      padding:14px 22px; font-size:1.4rem; 
+      background:rgba(255,255,255,0.05); 
+      border-radius:12px; color:var(--text);
+      text-decoration:none; transition:.3s;
+    "
+    href="https://dashboards.gruposervices.com.br/concentrix/auth.html">
+      <img class="asgardimg" src="https://lh3.googleusercontent.com/d/1-zTVV-jfq6xUpW5z199iqHyMRm2-ArPe=w1920-h1080" style="width:42px;">
+      Acessar Asgard ➤
+    </a>
+  </div>
+</div>
+
+<!-- SCRIPT DO FUNDO (CANVAS DINÂMICO) -->
+<script>
+const canvas = document.getElementById("bgCanvas");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+// partículas
+let particles = [];
+const total = 65;
+
+for (let i = 0; i < total; i++){
+  particles.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2.2 + 0.4,
+    dx: (Math.random() - 0.5) * 0.32,
+    dy: (Math.random() - 0.5) * 0.32
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(255,255,255,0.08)";
+    ctx.fill();
+
+    p.x += p.dx;
+    p.y += p.dy;
+
+    if(p.x < 0 || p.x > canvas.width) p.dx *= -1;
+    if(p.y < 0 || p.y > canvas.height) p.dy *= -1;
+  });
+
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+</body>
+</html>

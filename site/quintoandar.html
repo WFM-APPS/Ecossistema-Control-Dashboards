@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Dashboards | Quinto Andar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div id="navbar"></div>
+<script>
+  fetch("navbar.html")
+    .then(r => r.text())
+    .then(html => document.getElementById("navbar").innerHTML = html);
+</script>
+
+<div class="content">
+  <h1>Quinto Andar</h1>
+
+  <p class="lead">
+    Dashboards de acompanhamentos de SLA, KPIs e qualidade do atendimento Quinto Andar,
+    guiando resultado, performance e transparência dos processos.
+  </p>
+
+  <!-- CARD 1 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1COSPFMl1lOl9vkg1o9KhZrrvl8N1sBk3=w1920-h1080" alt="Resultados Operação">
+    <div class="card-text">
+      <h2>Resultados Operação</h2>
+      <p class="description-project">
+        SLA, KPIs de qualidade e indicadores por analista. Controle completo dos dados de cada caso.
+      </p>
+      <div class="card-actions">
+        <a href="https://lookerstudio.google.com/reporting/bbaae49c-84a7-4572-8506-00026334fd72/page/p_pw7eisacqd" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1gUmowR2iO9f0dUHpI-B9LTlJvlUreNx3=w1920-h1080" alt="Resultados Gerencial">
+    <div class="card-text">
+      <h2>Resultados Gerencial</h2>
+      <p class="description-project">
+        Acompanhamento de SLA, KPIs de qualidade e conformidade por time.
+      </p>
+      <div class="card-actions">
+        <a href="https://lookerstudio.google.com/reporting/d576d337-edfd-4d9d-9cf3-9a89c6b1cabc/page/p_8sn57bn4vd/edit" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/14syzOwWJhN86V0LLj1fGRuzBrkgAFF21=w1920-h1080" alt="Elegibilidade">
+    <div class="card-text">
+      <h2>Elegibilidade</h2>
+      <p class="description-project">
+        Acompanhamento de distribuição de casos por time e analista, carteira e esteira.
+      </p>
+      <div class="card-actions">
+        <a href="https://lookerstudio.google.com/reporting/208a364a-f00e-4ac7-b07a-1e11792de6cc/page/p_oau7qay6pd/edit" target="_blank">
+          🔗 Acessar Dashboard
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CARD 4 -->
+  <div class="card">
+    <img src="https://lh3.googleusercontent.com/d/1mbAhZNqxVKuDNayHSSa0S9AkVN-fubac=w1920-h1080" alt="Hefesto distribuição">
+    <div class="card-text">
+      <h2>Hefesto Distribuição</h2>
+      <p class="description-project">
+        Ferramenta em Python para automatizar distribuição de casos entre analistas, 
+        garantindo agilidade e execução segura.
+      </p>
+      <div class="card-actions">
+        <a href="https://drive.google.com/file/d/1mbAhZNqxVKuDNayHSSa0S9AkVN-fubac/view?resourcekey" target="_blank">
+          🔗 Acessar Vídeo Explicativo
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

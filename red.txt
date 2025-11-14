@@ -1,0 +1,1113 @@
+eu estou com um problema ao linkar a pagina com os acessos pela navbar. Eu não sei o que pode ser já que as configurações aparentemente estão corretas, imaginei que poderia ser alguma animação porém não é já que mesmo desabilitando não corrigiu. Preciso de ajuda! 
+
+o que está ocorrendo : Quando eu clico em qualquer uma das paginas eu sou levado apenas a primeira vez depois sou fica apenas uma tela branca, a URL não muda para a da pagina e não sai disso. Eu já validei as paginas e está funcionando se eu colocar no final da URL ?page=nome da pagina ele me leva para lá e ela está do jeito que eu quero. 
+
+vou te enviar os códigos e arquitetura detalhada apenas não mude o designe as cores nem a disposição nem a fonte nem nada, só precisamos resolver o problema de linkar as paginas. 
+
+estrutura atual:
+
+📁 Projeto Apps Script
+│
+├── Code.gs
+├── index.html          → página Home
+├── quintoandar.html    → página Quinto Andar
+├── boticario.html      → página Boticário
+├── santander.html      → página Santander
+├── zurich.html         → página Zurich
+├── copaenergia.html    → página Copa Energia
+├── navbar.html         → menu navegação
+└── domo.html         → página Domo
+
+code.gs : 
+
+function doGet(e) {
+  // Proteção para quando e ou e.parameter não existir
+  const params = (e && e.parameter) ? e.parameter : {};
+  const page = params.page || 'index';
+  
+  // Lista de páginas válidas (sem extensão - conforme aparecem no Apps Script)
+  const validPages = ['index', 'quintoandar', 'boticario', 'santander', 'zurich', 'copaenergia', 'domo'];
+  
+  // Se a página não for válida, usa index
+  const pageName = validPages.includes(page) ? page : 'index';
+  
+  try {
+    // Carrega o template (sem .html se seus arquivos não têm extensão)
+    return HtmlService.createTemplateFromFile(pageName)
+      .evaluate()
+      .setTitle('Control Dashboards - ' + pageName)
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  } catch (error) {
+    // Em caso de erro, mostra mensagem de debug
+    Logger.log('Erro ao carregar página ' + pageName + ': ' + error);
+    
+    return HtmlService.createHtmlOutput(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Erro - Debug</title>
+        <style>
+          body { 
+            font-family: monospace; 
+            padding: 30px; 
+            background: #0f0f0f; 
+            color: #ff6b6b; 
+          }
+          .info { color: #51cf66; }
+          pre { background: #000; padding: 15px; border-left: 4px solid #ff6b6b; }
+        </style>
+      </head>
+      <body>
+        <h1>❌ Erro ao carregar: ${pageName}</h1>
+        <pre>${error.toString()}</pre>
+        <hr>
+        <p class="info"><strong>Página solicitada:</strong> ${page}</p>
+        <p class="info"><strong>Página normalizada:</strong> ${pageName}</p>
+        <hr>
+        <p>Verifique se o arquivo existe no Apps Script com o nome exato: <strong>${pageName}</strong></p>
+        <p>Ou tente acessar: <a href="?page=index" style="color: #51cf66;">Página inicial</a></p>
+      </body>
+      </html>
+    `).setTitle('Erro - ' + pageName);
+  }
+}
+
+function include(filename) {
+  try {
+    return HtmlService.createHtmlOutputFromFile(filename).getContent();
+  } catch (error) {
+    Logger.log('Erro ao incluir arquivo: ' + filename + ' - ' + error);
+    return `<!-- Erro ao incluir ${filename}: ${error} -->`;
+  }
+}
+
+boticário.html : 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <?!= include('style'); ?>
+    <title>Control Dashboards | Boticário</title>
+  </head>
+  <body>
+    <?!= include('navbar'); ?>
+
+    <div class="content">
+      <h1>Boticário</h1>
+      <p class="lead">
+        Dashboards de acompanhamento operacional e estratégico dos feedbacks Boticário. Ferramentas que consolidam os dados de performance e execução dos formulários aplicados.
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/11ukolEWXx_NU5J6_1KFa2vkVxmgdc20X=w1920-h1080" alt="Feedbacks Boticário">
+        <div class="card-text">
+          <h2>Feedbacks Boticário</h2>
+          <p class="description-project">
+            Acompanhamento dos lançamentos de feedback por cada tipo de formulário, com diversas aberturas, para garantir as metas de execuções mensais e semanais.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="#" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1CsaRgg4dRxZfxojZsxJXOopfypt6klTy=w1920-h1080" alt="Boticário Resultados">
+        <div class="card-text">
+          <h2>Feedbacks Boticário</h2>
+          <p class="description-project">
+            Acompanhamento de resultados consolidados, com métricas detalhadas por equipe, tipo de atendimento e período. Visão gerencial para acompanhamento contínuo de performance.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/2241ef8a-b49f-4686-ab85-3ca821514375/page/Sc9UF" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
+
+
+copaenergia.html: 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <?!= include('style'); ?>
+    <title>Control Dashboards | Copa Energia</title>
+  </head>
+  <body>
+    <?!= include('navbar'); ?>
+
+    <div class="content">
+      <h1>Copa Energia</h1>
+      <p class="lead">
+        Dashboards de acompanhamento estratégico e operacional da operação Copa Energia, com foco em performance e eficiência no atendimento.
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1xbMvDTPNKHPdPqJ71fFawO00eLEAMdRT=w1920-h1080" alt="Resultados Copa Energia">
+        <div class="card-text">
+          <h2>Resultados Copa Energia</h2>
+          <p class="description-project">
+            Acompanhamento de resultados por períodos, com separação de unique e esforço. Arquitetura com gráficos robustos que detalham todos os rendimentos, e camadas para o acompanhamento mais detalhado da gerência de Customer Experience.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/u/0/reporting/23d23fc4-5182-4994-aaa1-3fa34c32243e/page/p_nugf5g9evd" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+quintoandar.html : 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <?!= include('style'); ?>
+    <title>Control Dashboards | Quinto Andar</title>
+  </head>
+  <body>
+    <?!= include('navbar'); ?>
+
+    <div class="content">
+      <h1>Quinto Andar</h1>
+      <p class="lead">
+        Dashboards de acompanhamentos de SLA, KPIs e qualidade do atendimento Quinto Andar, com métricas diárias, semanais e mensais. Todo ecossistema necessário para guiar o resultado e a confiança dos analistas nos processos, e diretrizes com foco em transparência dos resultados.
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1COSPFMl1lOl9vkg1o9KhZrrvl8N1sBk3=w1920-h1080" alt="Resultados Operação">
+        <div class="card-text">
+          <h2>Resultados Operação</h2>
+          <p class="description-project">
+            Acompanhamento de SLA, KPIs de qualidade e indicadores de conformidade por analista. Controle total dos dados de cada caso registrado por analista.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/bbaae49c-84a7-4572-8506-00026334fd72/page/p_pw7eisacqd" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1gUmowR2iO9f0dUHpI-B9LTlJvlUreNx3=w1920-h1080" alt="Resultados Gerencial">
+        <div class="card-text">
+          <h2>Resultados Gerencial</h2>
+          <p class="description-project">
+            Acompanhamento de SLA, KPIs de qualidade e indicadores de conformidade por time. Gráficos detalhados para acompanhamentos de longa duração.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/d576d337-edfd-4d9d-9cf3-9a89c6b1cabc/page/p_8sn57bn4vd/edit" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/14syzOwWJhN86V0LLj1fGRuzBrkgAFF21=w1920-h1080" alt="Elegibilidade">
+        <div class="card-text">
+          <h2>Elegibilidade</h2>
+          <p class="description-project">
+            Acompanhamento de distribuição de casos por analista, time e gerencial. Focado em validar o equilíbrio e visão em tempo real da carteira de cada esteira/analista.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/208a364a-f00e-4ac7-b07a-1e11792de6cc/page/p_oau7qay6pd/edit" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1mbAhZNqxVKuDNayHSSa0S9AkVN-fubac=w1920-h1080" alt="Hefesto distribuição">
+        <div class="card-text">
+          <h2>Hefesto distribuição</h2>
+          <p class="description-project">
+            Ferramenta local desenvolvida em Python para automatizar a distribuição de casos entre analistas na plataforma. Projetada para permitir o escalonamento de funcionalidades, ela reduz significativamente o tempo gasto na execução das ações, garantindo maior efetividade ao verificar erros e propriedades importantes do processo. 
+          </p>
+            <div class="card-actions">
+            <a class="btn btn-primary" href="https://drive.google.com/file/d/1mbAhZNqxVKuDNayHSSa0S9AkVN-fubac/view?resourcekey" target="_blank" rel="noopener">
+              🔗 Acessar video explicativo
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
+
+
+Santander.html :
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <?!= include('style'); ?>
+    <title>Control Dashboards | Santander</title>
+  </head>
+  <body>
+    <?!= include('navbar'); ?>
+
+    <div class="content">
+      <h1>Santander</h1>
+      <p class="lead">
+        Dashboards e relatórios de acompanhamento do desempenho da operação Santander, com foco em qualidade, produtividade e satisfação do cliente.
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1_sg8qkD9dqbNWlRfbCWUbuYEJVopofPC=w1920-h1080" alt="Painel Gerencial Santander">
+        <div class="card-text">
+          <h2>Painel Gerencial Santander</h2>
+          <p class="description-project">
+            Painel gerencial desenvolvido para monitorar os principais indicadores de desempenho da operação, oferecendo filtros dinâmicos por data, segmento, supervisor e operador.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/u/0/reporting/c69c8c69-b265-4674-942b-e95fedffedc1/page/p_1ofswz2swd" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1S3sMqDwUzf1rMneKiWgTlREt1QKamWmY=w1920-h1080" alt="Painel Operacional Santander">
+        <div class="card-text">
+          <h2>Painel Operacional Santander</h2>
+          <p class="description-project">
+            Painel gerencial desenvolvido para monitorar os principais indicadores de desempenho da operação, oferecendo filtros dinâmicos por data, segmento, supervisor e operador.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/u/0/reporting/5223011a-db62-48c4-aa2f-da6dd8f2b729/page/p_1ofswz2swd" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
+
+zurich.html: 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <?!= include('style'); ?>
+    <title>Control Dashboards | Zurich</title>
+  </head>
+  <body>
+    <?!= include('navbar'); ?>
+
+    <div class="content">
+      <h1>Zurich</h1>
+      <p class="lead">
+        Dashboards e indicadores de desempenho Zurich. Espaço dedicado ao monitoramento dos resultados operacionais e estratégicos.
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/11pcRHl1Mm_wrJT9gzEfvydFO7nWghtgu=w1920-h1080" alt="Painel Gerencial Zurich">
+        <div class="card-text">
+          <h2>Painel Gerencial Zurich</h2>
+          <p class="description-project">
+            Painel gerencial desenvolvido para monitorar os principais indicadores de desempenho da operação, oferecendo filtros dinâmicos por data, segmento, supervisor e operador.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/3392984d-981d-44ff-bdad-f09047957de6/page/p_47afxom4sd" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1Dna2S404LujEJ0l0F9gh5HWPFysu0U3I=w1920-h1080" alt="Painel Individual Zurich">
+        <div class="card-text">
+          <h2>Painel Individual Zurich</h2>
+          <p class="description-project">
+            Painel individual de performance que consolida os resultados e o atingimento das metas de cada colaborador, permitindo filtros por data e tipo de retenção.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/9624c937-cd30-4586-9dd4-09a16b4a4b20/page/IcMTF" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
+
+index.html : 
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <?!= include('style'); ?>
+    <title>Control Dashboards | Home</title>
+  </head>
+  <body>
+    <?!= include('navbar'); ?>
+
+    <!-- background canvas and subtle overlay -->
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+    <div class="bg-overlay" aria-hidden="true"></div>
+
+    <div class="content">
+      <h1>Bem-vindo ao Ecossistema<br>Control Dashboards</h1>
+      <p class="lead">
+        Aqui você encontra todos os acessos centralizados aos dashboards corporativos, indicadores e ferramentas
+        de análise para cada cliente.
+      </p>
+
+      <div class="home-buttons" role="list">
+        <a role="listitem" href="https://concentrix.domo.com/auth/index?redirectUrl=%2Fapp-studio%2F688935992%2Fpages%2F1740210127" target="_blank" rel="noopener" class="home-btn" aria-label="Acessar DOMO">
+          <img src="https://img.icons8.com/?size=100&id=78770&format=png&color=FFFFFF" alt="">
+          DOMO ➤
+        </a>
+
+        <a role="listitem" href="https://dashboards.gruposervices.com.br/ragnamop/auth.html" target="_blank" rel="noopener" class="home-btn" aria-label="Acessar Ragna MOP">
+          <img src="https://img.icons8.com/?size=100&id=4221&format=png&color=FFFFFF" alt="">
+          Ragna MOP ➤
+        </a>
+
+        <a role="listitem" href="https://dashboards.gruposervices.com.br/concentrix/auth.html" target="_blank" rel="noopener" class="home-btn" aria-label="Acessar ASGARD">
+          <img class="asgardimg" src="https://lh3.googleusercontent.com/d/1-zTVV-jfq6xUpW5z199iqHyMRm2-ArPe=w1920-h1080" alt="">
+          Asgard ➤
+        </a>
+      </div>
+    </div>
+
+    <!-- Canvas animation script (uses computed CSS vars so it respects theme) -->
+    <script>
+      const canvas = document.getElementById('bgCanvas');
+      const ctx = canvas.getContext('2d');
+      let w = innerWidth, h = innerHeight, t = 0;
+      function resize() { w = canvas.width = innerWidth; h = canvas.height = innerHeight; }
+      addEventListener('resize', resize);
+      resize();
+
+      function hexToRgba(hex, alpha) {
+        const h = hex.replace('#','');
+        const bigint = parseInt(h, 16);
+        const r = (bigint >> 16) & 255;
+        const g = (bigint >> 8) & 255;
+        const b = bigint & 255;
+        return `rgba(${r},${g},${b},${alpha})`;
+      }
+
+      function getPalette() {
+        const cs = getComputedStyle(document.body);
+        const s = cs.getPropertyValue('--surface-alt').trim() || '#163832';
+        const sa = cs.getPropertyValue('--accent').trim() || '#235347';
+        const a = cs.getPropertyValue('--highlight').trim() || '#8eb69b';
+        const hi = cs.getPropertyValue('--text').trim() || '#daf1de';
+        return { s, sa, a, hi };
+      }
+
+      function drawWave(offset, amp, freq, color, speed) {
+        ctx.beginPath();
+        ctx.moveTo(0, h);
+        for (let x = 0; x <= w; x += 12) {
+          const y = h * 0.6 + Math.sin(x * freq + t * speed + offset) * amp + Math.cos(x * (freq*0.6) + t * speed*0.7) * (amp*0.4);
+          ctx.lineTo(x, y);
+        }
+        ctx.lineTo(w, h);
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+      }
+
+      function animate() {
+        t += 0.018;
+        ctx.clearRect(0,0,w,h);
+        const pal = getPalette();
+        // pick colors with alpha
+        drawWave(120, 44, 0.011, hexToRgba(pal.hi || '#daf1de', 0.06), 1.0);
+        drawWave(20, 88, 0.009, hexToRgba(pal.a || '#8eb69b', 0.055), 0.75);
+        drawWave(-60, 140, 0.007, hexToRgba(pal.sa || '#235347', 0.05), 0.6);
+        requestAnimationFrame(animate);
+      }
+
+      // restart canvas if theme changes (mutations)
+      const observer = new MutationObserver(() => { /* recompute on theme change */ });
+      observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+      animate();
+    </script>
+  </body>
+</html>
+
+navbar.html : 
+
+
+<nav>
+  <div class="nav-left">
+    <a href="?page=index" class="home-link" aria-label="Home Control Dashboards">
+      <img class="nav-icon" src="https://img.icons8.com/?size=100&id=9zcV0gKAozhn&format=png&color=FFFFFF" alt="home icon">
+      Home
+    </a>
+  </div>
+
+  <div class="nav-center" role="navigation" aria-label="Navegação principal">
+    <div class="container-aicon">
+      <a href="?page=quintoandar">
+        <img class="nav-icon-quinto" src="https://lh3.googleusercontent.com/d/1FTVmJwXDds1WnukeDH4vaShIvwYLrMK8=w1920-h1080" alt="">
+        Quinto Andar
+      </a>
+    </div>
+
+    <div class="container-aicon">
+      <a class="a-no-gap" href="?page=boticario">
+        <img class="nav-icon" src="https://lh3.googleusercontent.com/d/12TydZaPgmAYn3Pm3HwWGeAOBb90n72Cf=w1920-h1080" alt="">
+        Boticário
+      </a>
+    </div>
+
+    <div class="container-aicon">
+      <a href="?page=santander" >
+        <img class="nav-icon-santander" src="https://lh3.googleusercontent.com/d/1tiJu4td3SfifkJKq7Xj_7-ZaqHImQ8dt=w1920-h1080" alt="">
+        Santander
+      </a>
+    </div>
+    
+    <div class="container-aicon">
+      <a href="?page=zurich" >
+        <img class="nav-icon-zurich" src="https://lh3.googleusercontent.com/d/1neeXZv0wZ-CmIqIdsxa37xQjxh7I3PMT=w1920-h1080" alt="">
+        Zurich
+      </a>
+    </div>
+
+    <div class="container-aicon">
+      <a class="a-no-gap" href="?page=copaenergia">
+        <img class="nav-icon" src="https://lh3.googleusercontent.com/d/1VFkH8VqAO4l1jzZQe9v3wLDXXAppRZUG=w1920-h1080" alt="">
+        Copa Energia
+      </a>
+    </div>
+
+  </div>
+
+  <div class="nav-left">
+    <a href="?page=domo" class="home-link" aria-label="Home Control Dashboards">
+      <img class="nav-icon" src="https://img.icons8.com/?size=100&id=78770&format=png&color=FFFFFF" alt="home icon">
+      DOMO
+    </a>
+  </div>
+
+</nav>
+
+<script>
+(function() {
+  const PUBLIC_BASE_URL = "https://script.google.com/macros/s/AKfycbwemlBlhD5rpXJMUfN-VCrpYgWX4WxvT5jKRABrJ3s0zSE6wHcYVfu5qU_NBDoooRkYyw/exec";
+  const MAX_TRIES = 12;
+  const TRY_INTERVAL_MS = 100;
+
+  function getBaseUrl() {
+    const href = window.location.href || "";
+    if (href.includes("userCodeAppPanel") || href.includes("script.googleusercontent.com")) {
+      return PUBLIC_BASE_URL;
+    }
+    return href.split('?')[0];
+  }
+
+  function normalizeUrl(u) {
+    // remove trailing slash and hash for reliable comparison
+    try {
+      return u.replace(/#.*$/, '').replace(/\/$/, '');
+    } catch (e) { return u; }
+  }
+
+  function init() {
+    const baseUrl = getBaseUrl();
+    const links = document.querySelectorAll('a[href^="?page="]');
+    console.debug('[NAVBAR] baseUrl:', baseUrl, 'links found:', links.length);
+
+    if (!links || links.length === 0) {
+      console.warn('[NAVBAR] Nenhum link ?page= encontrado — aguardando elemento.');
+      return false;
+    }
+
+    links.forEach(link => {
+      // remove listener se já houver (não dependemos de nomes estranhos)
+      link.removeEventListener('click', link.__nav_handler__);
+      // cria handler e guarda referência para possível remoção depois
+      const handler = handleClickWrapper.bind(link);
+      link.__nav_handler__ = handler;
+      link.addEventListener('click', handler);
+    });
+
+    // destaque do link atual
+    const currentPage = new URLSearchParams(window.location.search).get('page') || 'index';
+    links.forEach(link => {
+      try {
+        if (link.getAttribute('href').includes(currentPage)) {
+          link.style.color = 'var(--highlight)';
+          link.style.textShadow = '0 4px 18px rgba(0,0,0,0.45)';
+        }
+      } catch (err) { console.debug('[NAVBAR] erro ao aplicar destaque:', err); }
+    });
+
+    return true;
+  }
+
+  function tryNavigateTop(url) {
+    try {
+      // tentativa direta no top (padrão)
+      window.top.location.href = url;
+      console.debug('[NAVBAR] navegação: window.top.location.href');
+      return true;
+    } catch (err) {
+      console.debug('[NAVBAR] window.top blocked:', err && err.message ? err.message : err);
+      return false;
+    }
+  }
+
+  function tryOpenTop(url) {
+    try {
+      // window.open com target _top costuma funcionar como fallback
+      const win = window.open(url, '_top');
+      if (win) {
+        console.debug('[NAVBAR] navegação: window.open(..., "_top")');
+        return true;
+      } else {
+        console.debug('[NAVBAR] window.open returned null (popup blocked?)');
+        return false;
+      }
+    } catch (err) {
+      console.debug('[NAVBAR] window.open erro:', err && err.message ? err.message : err);
+      return false;
+    }
+  }
+
+  function tryLocalAssign(url) {
+    try {
+      window.location.href = url;
+      console.debug('[NAVBAR] navegação: window.location.href (fallback)');
+      return true;
+    } catch (err) {
+      console.debug('[NAVBAR] window.location.href erro:', err && err.message ? err.message : err);
+      return false;
+    }
+  }
+
+  function handleClickWrapper(e) {
+    e.preventDefault();
+    try {
+      const baseUrl = getBaseUrl();
+      const pageParam = this.getAttribute('href') || '';
+      const targetUrl = baseUrl + pageParam;
+
+      const normTarget = normalizeUrl(targetUrl);
+      const normCurrent = normalizeUrl(window.location.href || '');
+
+      if (normTarget === normCurrent) {
+        console.debug('[NAVBAR] já estamos na mesma URL:', normTarget);
+        return;
+      }
+
+      document.body.classList.add('page-exit');
+
+      setTimeout(() => {
+        console.debug('[NAVBAR] tentando navegar para:', targetUrl);
+
+        // 1) tentativa padrão
+        if (tryNavigateTop(targetUrl)) return;
+
+        // 2) fallback abrir no top via window.open
+        if (tryOpenTop(targetUrl)) return;
+
+        // 3) fallback local assign (pode falhar no sandbox mas tentamos)
+        if (tryLocalAssign(targetUrl)) return;
+
+        // 4) se ainda assim nada, mostra instrução ao usuário (console + alert leve)
+        console.error('[NAVBAR] todas as tentativas de navegação falharam. URL alvo:', targetUrl);
+        try {
+          // informe visualmente em caso de falha intermitente
+          window.alert('Não foi possível navegar automaticamente. Copie e cole esta URL no navegador:\\n' + targetUrl);
+        } catch (e) { /* ignore */ }
+      }, 420);
+    } catch (err) {
+      console.error('[NAVBAR] erro não esperado no clique:', err);
+      try {
+        const pageParam = this.getAttribute('href') || '';
+        window.location.href = getBaseUrl() + pageParam;
+      } catch (e) { /* swallow */ }
+    }
+  }
+
+  function readyAndInit() {
+    let tries = 0;
+    function attempt() {
+      tries++;
+      const ok = init();
+      if (!ok && tries < MAX_TRIES) {
+        setTimeout(attempt, TRY_INTERVAL_MS);
+      } else if (!ok) {
+        console.error('[NAVBAR] Falha ao inicializar após ' + tries + ' tentativas.');
+      } else {
+        console.info('[NAVBAR] Inicializado com sucesso (' + tries + ' tentativas).');
+      }
+    }
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      attempt();
+    } else {
+      document.addEventListener('DOMContentLoaded', attempt, { once: true });
+      setTimeout(() => {
+        if (document.readyState !== 'complete' && document.readyState !== 'interactive') {
+          attempt();
+        }
+      }, 200);
+    }
+  }
+
+  readyAndInit();
+})();
+</script>
+
+style.html : 
+
+<style>
+  /* ===========================
+    THEME: DARK PREMIUM FS 2025
+    Palette (dark->light):
+    #051f20, #0b2b26, #163832, #235347, #8eb69b, #daf1de
+  ============================*/
+  :root {
+    --bg: #051f20;
+    --surface: #0b2b26;
+    --surface-alt: #163832;
+    --accent: #235347;
+    --highlight: #8eb69b;
+    --text: #daf1de;
+    --button-bg: #daf1de;
+    --button-text: #051f20;
+
+    /* spacing / sizing */
+    --nav-height: 76px;
+    --container-padding: 8%;
+    --radius-lg: 18px;
+  }
+
+  /* Smooth global */
+  html, body {
+    margin: 0;
+    height: 100%;
+    min-height: 100%;
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(5,31,32,0.9) 60%);
+    color: var(--text);
+    font-family: "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background 0.6s ease, color 0.6s ease;
+    overflow-x: hidden;
+  }
+
+  /* entry animation */
+  body { opacity: 0; animation: pageFadeIn 0.65s ease forwards 0.06s; }
+  @keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(6px); filter: blur(6px); }
+    to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+  }
+
+  /* ---------- BACKGROUND CANVAS ---------- */
+  #bgCanvas {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -2;
+    pointer-events: none;
+  }
+
+  /* subtle texture overlay to add depth */
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(ellipse at 20% 20%, rgba(255,255,255,0.02), transparent 8%),
+                radial-gradient(ellipse at 80% 80%, rgba(255,255,255,0.02), transparent 12%);
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
+  /* ---------- NAVBAR ---------- */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    height: var(--nav-height);
+    padding: 14px 56px;
+    background: linear-gradient(90deg, rgba(11,43,38,0.20), rgba(22,56,50,0.10));
+    border-bottom: 1px solid rgba(255,255,255,0.02);
+    box-shadow: 0 8px 30px rgba(2,6,6,0.55);
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    backdrop-filter: blur(8px) saturate(120%);
+  }
+
+  .nav-left, .nav-center, .nav-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-left {
+    gap: 14px;
+  }
+
+  /* Home separated left */
+  .home-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 8px 12px;
+    border-radius: 12px;
+    transition: all .25s ease;
+  }
+  .home-link img { width: 22px; height: 22px; filter: brightness(1.05); }
+
+  .home-link:hover {
+    transform: translateY(-2px);
+    color: var(--highlight);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  }
+
+  /* Center nav */
+  .nav-center {
+    flex: 1;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .nav-center a {
+    gap: 10px;
+    display: inline-flex;
+    align-items: center;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.05rem;
+    padding: 8px 12px;
+    border-radius: 12px;
+    transition: all .25s ease;
+  }
+
+  .nav-center a.a-no-gap {
+    gap: 0 !important;
+  }
+
+  .nav-center img { 
+    border-radius: 5px
+   }
+
+  .nav-icon {
+    width: 50px;   /* antes era ~20px */
+    height: 50px;
+    object-fit: contain;
+  }
+
+  .nav-icon-zurich {
+    width: 20px;   /* antes era ~20px */
+    height: 20px;
+    object-fit: contain;
+  }
+
+  .nav-icon-santander {
+    width: 20px;   /* antes era ~20px */
+    height: 20px;
+    object-fit: contain;
+  }
+
+  .nav-icon-quinto {
+    width: 18px;   /* antes era ~20px */
+    height: 18px;
+    object-fit: contain;
+  }
+
+  .nav-center a:hover {
+    color: var(--highlight);
+    transform: translateY(-3px);
+    text-shadow: 0 4px 18px rgba(0,0,0,0.45);
+  }
+
+  /* Right area */
+  .nav-right { gap: 12px; }
+
+  .dark-toggle {
+    cursor: pointer;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--accent), var(--surface-alt));
+    color: var(--text);
+    padding: 10px 16px;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 6px 22px rgba(0,0,0,0.45);
+    transition: transform .18s ease, background .25s ease;
+  }
+  .dark-toggle:hover { transform: scale(1.06); }
+
+  /* ---------- PAGE TRANSITIONS ---------- */
+  .page-exit {
+    animation: pageExit 0.45s ease forwards;
+  }
+  @keyframes pageExit {
+    from { opacity: 1; transform: translateY(0); filter: blur(0); }
+    to   { opacity: 0; transform: translateY(-8px); filter: blur(6px); }
+  }
+
+  /* ---------- CONTENT ---------- */
+  .content {
+    padding: 64px var(--container-padding);
+    max-width: 1200px;
+    margin: 0 auto;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    color: var(--text);
+    font-size: clamp(2.2rem, 3.4vw, 3.6rem);
+    margin: 14px 0 30px;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
+    text-align: center;
+    font-weight: 800;
+  }
+
+  p.lead, .content p {
+    color: rgba(218,241,222,0.92);
+    max-width: 920px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* ---------- HOME BUTTONS ---------- */
+  .home-buttons {
+    margin-top: 48px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .home-btn {
+    background: var(--surface-alt);
+    color: var(--text);
+    padding: 20px 24px;
+    border-radius: 14px;
+    min-width: 230px;
+    max-width: 320px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.05rem;
+    box-shadow: 0 10px 30px rgba(2,6,6,0.45);
+    transition: transform .28s ease, box-shadow .28s ease, filter .28s ease;
+    border: 1px solid rgba(5,31,32,0.06);
+  }
+  .home-btn img {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 10px;
+    filter: none;
+  }
+
+  .home-btn img.asgardimg {
+    width: 155px;
+    height: 56px;
+    margin-bottom: 10px;
+    filter: none;
+  }
+
+  .home-btn:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 48px rgba(5,31,32,0.55);
+    filter: saturate(1.05);
+  }
+  .home-btn:active { transform: translateY(-3px); }
+
+  /* ---------- CARDS (less dark) ---------- */
+  .card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border-radius: var(--radius-lg);
+    box-shadow: 0 14px 40px rgba(2,6,6,0.5);
+    padding: 0;
+    overflow: hidden;
+    margin: 36px 0;
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+
+  .card img {
+    width: 460px;
+    max-width: 46%;
+    min-width: 300px;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 16px;
+    margin: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    transition: transform 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
+  }
+
+  .card img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6);
+    filter: brightness(1.08) saturate(1.05);
+  }
+
+  .card-text {
+    padding: 28px 36px;
+    flex: 1;
+    color: rgba(218,241,222,0.95);
+    text-align: center;
+  }
+
+  .card-text h2 {
+    color: var(--highlight);
+    margin: 6px 0 8px;
+    font-size: 1.35rem;
+    text-align: center;
+  }
+
+  .card-text p { color: rgba(218,241,222,0.86); line-height: 1.6; }
+
+  .card-actions a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-right: 8px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.03);
+  }
+
+  /* responsiveness */
+  @media (max-width: 880px) {
+    .card img {
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      margin: 0;
+    }
+  }
+  /* accessibility focus */
+  a:focus, button:focus { outline: 3px solid rgba(142,182,155,0.18); outline-offset: 2px; border-radius: 8px; }
+
+</style>
+
+domo.html:
+<!DOCTYPE html>
+<html>
+  <head>
+    <?!= include('style'); ?>
+    <title>Control Dashboards | DOMO</title>
+  </head>
+  <body>
+    <?!= include('navbar'); ?>
+
+    <div class="content">
+      <h1>DOMO</h1>
+      <p class="lead">
+        Plataforma centralizada com extrações e visualizações de informações essenciais como ABS Aderencia, Movimentações, tudo detalhado por carteira e focado em trazer o macro sem deixar de lado o micro a todo momento. 
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1cqwbgY_5FBsDIDPSOlM3IklxIjGoVPGI=w1920-h1080" alt="ABS + ADH">
+        <div class="card-text">
+          <h2>ABS + ADH</h2>
+          <p class="description-project">
+            Acompanhamento Aderencia e ABS de cada carteira, percentuais e detalhamento com extrações completas.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://concentrix.domo.com/app-studio/1946208987/pages/1804295344" target="_blank" rel="noopener">
+              🔗 Acessar Plataforma
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1WJYg4MWb3GSC03-UNK4OjA_9PuZqRZQG=w1920-h1080" alt="Detalhado MSA">
+        <div class="card-text">
+          <h2>Detalhado MSA</h2>
+          <p class="description-project">
+            Acompanhamento detalhado das movimentações de todos os funcionarios ativos e inativos. Visuais simplificados com numeros e extração detalhada de base para estudos completos. 
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://concentrix.domo.com/app-studio/688935992/pages/1740210127" target="_blank" rel="noopener">
+              🔗 Acessar Plataforma
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1fR47S_KgPmaGE4MOVBSAiYrgr_-Z3CdI=w1920-h1080" alt="CVA">
+        <div class="card-text">
+          <h2>CVA</h2>
+          <p class="description-project">
+            Acompanhamento detalhado de KPI e CPI para manter a qualidade total da carteira a todo momento. 
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://concentrix.domo.com/page/263068014" target="_blank" rel="noopener">
+              🔗 Acessar Plataforma
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
