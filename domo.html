@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>Control Dashboards | DOMO</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <div class="content">
+      <h1>DOMO</h1>
+      <p class="lead">
+        Plataforma centralizada com extrações e visualizações de informações essenciais como ABS Aderencia, Movimentações, tudo detalhado por carteira e focado em trazer o macro sem deixar de lado o micro a todo momento. 
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1cqwbgY_5FBsDIDPSOlM3IklxIjGoVPGI=w1920-h1080" alt="ABS + ADH">
+        <div class="card-text">
+          <h2>ABS + ADH</h2>
+          <p class="description-project">
+            Acompanhamento Aderencia e ABS de cada carteira, percentuais e detalhamento com extrações completas.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://concentrix.domo.com/app-studio/1946208987/pages/1804295344" target="_blank" rel="noopener">
+              🔗 Acessar Plataforma
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1WJYg4MWb3GSC03-UNK4OjA_9PuZqRZQG=w1920-h1080" alt="Detalhado MSA">
+        <div class="card-text">
+          <h2>Detalhado MSA</h2>
+          <p class="description-project">
+            Acompanhamento detalhado das movimentações de todos os funcionarios ativos e inativos. Visuais simplificados com numeros e extração detalhada de base para estudos completos. 
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://concentrix.domo.com/app-studio/688935992/pages/1740210127" target="_blank" rel="noopener">
+              🔗 Acessar Plataforma
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1fR47S_KgPmaGE4MOVBSAiYrgr_-Z3CdI=w1920-h1080" alt="CVA">
+        <div class="card-text">
+          <h2>CVA</h2>
+          <p class="description-project">
+            Acompanhamento detalhado de KPI e CPI para manter a qualidade total da carteira a todo momento. 
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://concentrix.domo.com/page/263068014" target="_blank" rel="noopener">
+              🔗 Acessar Plataforma
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+    (function(){
+      fetch('navbar.html').then(r => r.text()).then(html => {
+        const container = document.getElementById('navbar');
+        container.innerHTML = html;
+        const scripts = Array.from(container.querySelectorAll('script'));
+        scripts.forEach(s => {
+          const ns = document.createElement('script');
+          if (s.src) ns.src = s.src;
+          else ns.textContent = s.textContent;
+          document.head.appendChild(ns);
+          s.remove();
+        });
+      }).catch(err => console.error('Erro ao carregar navbar:', err));
+    })();
+    </script>
+  </body>
+</html>

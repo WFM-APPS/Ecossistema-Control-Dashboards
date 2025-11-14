@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>Control Dashboards | Zurich</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <div class="content">
+      <h1>Zurich</h1>
+      <p class="lead">
+        Dashboards e indicadores de desempenho Zurich. Espaço dedicado ao monitoramento dos resultados operacionais e estratégicos.
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/11pcRHl1Mm_wrJT9gzEfvydFO7nWghtgu=w1920-h1080" alt="Painel Gerencial Zurich">
+        <div class="card-text">
+          <h2>Painel Gerencial Zurich</h2>
+          <p class="description-project">
+            Painel gerencial desenvolvido para monitorar os principais indicadores de desempenho da operação, oferecendo filtros dinâmicos por data, segmento, supervisor e operador.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/3392984d-981d-44ff-bdad-f09047957de6/page/p_47afxom4sd" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1Dna2S404LujEJ0l0F9gh5HWPFysu0U3I=w1920-h1080" alt="Painel Individual Zurich">
+        <div class="card-text">
+          <h2>Painel Individual Zurich</h2>
+          <p class="description-project">
+            Painel individual de performance que consolida os resultados e o atingimento das metas de cada colaborador, permitindo filtros por data e tipo de retenção.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/9624c937-cd30-4586-9dd4-09a16b4a4b20/page/IcMTF" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+    (function(){
+      fetch('navbar.html').then(r => r.text()).then(html => {
+        const container = document.getElementById('navbar');
+        container.innerHTML = html;
+        const scripts = Array.from(container.querySelectorAll('script'));
+        scripts.forEach(s => {
+          const ns = document.createElement('script');
+          if (s.src) ns.src = s.src;
+          else ns.textContent = s.textContent;
+          document.head.appendChild(ns);
+          s.remove();
+        });
+      }).catch(err => console.error('Erro ao carregar navbar:', err));
+    })();
+    </script>
+  </body>
+</html>

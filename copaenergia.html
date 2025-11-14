@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>Control Dashboards | Copa Energia</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <div class="content">
+      <h1>Copa Energia</h1>
+      <p class="lead">
+        Dashboards de acompanhamento estratégico e operacional da operação Copa Energia, com foco em performance e eficiência no atendimento.
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1xbMvDTPNKHPdPqJ71fFawO00eLEAMdRT=w1920-h1080" alt="Resultados Copa Energia">
+        <div class="card-text">
+          <h2>Resultados Copa Energia</h2>
+          <p class="description-project">
+            Acompanhamento de resultados por períodos, com separação de unique e esforço. Arquitetura com gráficos robustos que detalham todos os rendimentos, e camadas para o acompanhamento mais detalhado da gerência de Customer Experience.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.googleusercontent.com/u/0/reporting/23d23fc4-5182-4994-aaa1-3fa34c32243e/page/p_nugf5g9evd" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    (function(){
+      fetch('navbar.html').then(r => r.text()).then(html => {
+        const container = document.getElementById('navbar');
+        container.innerHTML = html;
+        const scripts = Array.from(container.querySelectorAll('script'));
+        scripts.forEach(s => {
+          const ns = document.createElement('script');
+          if (s.src) ns.src = s.src;
+          else ns.textContent = s.textContent;
+          document.head.appendChild(ns);
+          s.remove();
+        });
+      }).catch(err => console.error('Erro ao carregar navbar:', err));
+    })();
+    </script>
+  </body>
+</html>

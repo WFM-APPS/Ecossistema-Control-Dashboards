@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>Control Dashboards | Home</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <!-- background canvas and subtle overlay -->
+    <canvas id="bgCanvas" aria-hidden="true"></canvas>
+    <div class="bg-overlay" aria-hidden="true"></div>
+
+    <div class="content">
+      <h1>Bem-vindo ao Ecossistema<br>Control Dashboards</h1>
+      <p class="lead">
+        Aqui você encontra todos os acessos centralizados aos dashboards corporativos, indicadores e ferramentas
+        de análise para cada cliente.
+      </p>
+
+      <div class="home-buttons" role="list">
+        <a role="listitem" href="https://concentrix.domo.com/auth/index?redirectUrl=%2Fapp-studio%2F688935992%2Fpages%2F1740210127" target="_blank" rel="noopener" class="home-btn" aria-label="Acessar DOMO">
+          <img src="https://img.icons8.com/?size=100&id=78770&format=png&color=FFFFFF" alt="">
+          DOMO ➤
+        </a>
+
+        <a role="listitem" href="https://dashboards.gruposervices.com.br/ragnamop/auth.html" target="_blank" rel="noopener" class="home-btn" aria-label="Acessar Ragna MOP">
+          <img src="https://img.icons8.com/?size=100&id=4221&format=png&color=FFFFFF" alt="">
+          Ragna MOP ➤
+        </a>
+
+        <a role="listitem" href="https://dashboards.gruposervices.com.br/concentrix/auth.html" target="_blank" rel="noopener" class="home-btn" aria-label="Acessar ASGARD">
+          <img class="asgardimg" src="https://lh3.googleusercontent.com/d/1-zTVV-jfq6xUpW5z199iqHyMRm2-ArPe=w1920-h1080" alt="">
+          Asgard ➤
+        </a>
+      </div>
+    </div>
+
+    <!-- include helper: carrega navbar.html e executa scripts contidos -->
+    <script>
+    (function(){
+      fetch('navbar.html').then(r => r.text()).then(html => {
+        const container = document.getElementById('navbar');
+        container.innerHTML = html;
+        // execute scripts inside the loaded HTML
+        const scripts = Array.from(container.querySelectorAll('script'));
+        scripts.forEach(s => {
+          const ns = document.createElement('script');
+          if (s.src) ns.src = s.src;
+          else ns.textContent = s.textContent;
+          document.head.appendChild(ns);
+          s.remove();
+        });
+      }).catch(err => console.error('Erro ao carregar navbar:', err));
+    })();
+    </script>
+
+    <script src="bg.js"></script>
+  </body>
+</html>

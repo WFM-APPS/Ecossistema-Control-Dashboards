@@ -1,0 +1,157 @@
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="home-link" aria-label="Home Control Dashboards">
+      <img class="nav-icon" src="https://img.icons8.com/?size=100&id=9zcV0gKAozhn&format=png&color=FFFFFF" alt="home icon">
+      Home
+    </a>
+  </div>
+
+  <div class="nav-center" role="navigation" aria-label="Navegação principal">
+    <div class="container-aicon">
+      <a href="quintoandar.html">
+        <img class="nav-icon-quinto" src="https://lh3.googleusercontent.com/d/1FTVmJwXDds1WnukeDH4vaShIvwYLrMK8=w1920-h1080" alt="">
+        Quinto Andar
+      </a>
+    </div>
+
+    <div class="container-aicon">
+      <a class="a-no-gap" href="boticario.html">
+        <img class="nav-icon" src="https://lh3.googleusercontent.com/d/12TydZaPgmAYn3Pm3HwWGeAOBb90n72Cf=w1920-h1080" alt="">
+        Boticário
+      </a>
+    </div>
+
+    <div class="container-aicon">
+      <a href="santander.html" >
+        <img class="nav-icon-santander" src="https://lh3.googleusercontent.com/d/1tiJu4td3SfifkJKq7Xj_7-ZaqHImQ8dt=w1920-h1080" alt="">
+        Santander
+      </a>
+    </div>
+    
+    <div class="container-aicon">
+      <a href="zurich.html" >
+        <img class="nav-icon-zurich" src="https://lh3.googleusercontent.com/d/1neeXZv0wZ-CmIqIdsxa37xQjxh7I3PMT=w1920-h1080" alt="">
+        Zurich
+      </a>
+    </div>
+
+    <div class="container-aicon">
+      <a class="a-no-gap" href="copaenergia.html">
+        <img class="nav-icon" src="https://lh3.googleusercontent.com/d/1VFkH8VqAO4l1jzZQe9v3wLDXXAppRZUG=w1920-h1080" alt="">
+        Copa Energia
+      </a>
+    </div>
+
+  </div>
+
+  <div class="nav-left">
+    <a href="domo.html" class="home-link" aria-label="Home Control Dashboards">
+      <img class="nav-icon" src="https://img.icons8.com/?size=100&id=78770&format=png&color=FFFFFF" alt="home icon">
+      DOMO
+    </a>
+  </div>
+</nav>
+
+<script>
+(function() {
+  const MAX_TRIES = 12;
+  const TRY_INTERVAL_MS = 100;
+
+  function normalizeUrl(u) {
+    try {
+      return u.replace(/#.*$/, '').replace(/\/$/, '');
+    } catch (e) { return u; }
+  }
+
+  function init() {
+    const links = document.querySelectorAll('a[href]');
+    if (!links || links.length === 0) return false;
+
+    links.forEach(link => {
+      link.removeEventListener('click', link.__nav_handler__);
+      const handler = handleClickWrapper.bind(link);
+      link.__nav_handler__ = handler;
+      link.addEventListener('click', handler);
+    });
+
+    const currentPage = (window.location.pathname || '').split('/').pop() || 'index.html';
+    links.forEach(link => {
+      try {
+        const href = link.getAttribute('href');
+        if (href && href.includes(currentPage)) {
+          link.style.color = 'var(--highlight)';
+          link.style.textShadow = '0 4px 18px rgba(0,0,0,0.45)';
+        }
+      } catch (err) { console.debug('[NAVBAR] destaque erro', err); }
+    });
+    return true;
+  }
+
+  function tryNavigateTop(url) {
+    try {
+      window.top.location.href = url;
+      return true;
+    } catch (err) { return false; }
+  }
+
+  function tryOpenTop(url) {
+    try {
+      const win = window.open(url, '_top');
+      return !!win;
+    } catch (err) { return false; }
+  }
+
+  function tryLocalAssign(url) {
+    try {
+      window.location.href = url;
+      return true;
+    } catch (err) { return false; }
+  }
+
+  function handleClickWrapper(e) {
+    e.preventDefault();
+    try {
+      const pageParam = this.getAttribute('href') || '';
+      const base = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '');
+      const targetUrl = new URL(pageParam, base).toString();
+
+      const normTarget = normalizeUrl(targetUrl);
+      const normCurrent = normalizeUrl(window.location.href || '');
+
+      if (normTarget === normCurrent) return;
+
+      document.body.classList.add('page-exit');
+
+      setTimeout(() => {
+        if (tryNavigateTop(targetUrl)) return;
+        if (tryOpenTop(targetUrl)) return;
+        if (tryLocalAssign(targetUrl)) return;
+        try { window.alert('Não foi possível navegar automaticamente. Copie e cole esta URL:\\n' + targetUrl); } catch (e) {}
+      }, 420);
+    } catch (err) {
+      try {
+        const pageParam = this.getAttribute('href') || '';
+        window.location.href = pageParam;
+      } catch (e) {}
+    }
+  }
+
+  function readyAndInit() {
+    let tries = 0;
+    function attempt() {
+      tries++;
+      const ok = init();
+      if (!ok && tries < MAX_TRIES) setTimeout(attempt, TRY_INTERVAL_MS);
+    }
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+      attempt();
+    } else {
+      document.addEventListener('DOMContentLoaded', attempt, { once: true });
+      setTimeout(() => { if (document.readyState !== 'complete' && document.readyState !== 'interactive') attempt(); }, 200);
+    }
+  }
+
+  readyAndInit();
+})();
+</script>

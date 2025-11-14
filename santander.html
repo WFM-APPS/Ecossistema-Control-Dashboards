@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>Control Dashboards | Santander</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <div class="content">
+      <h1>Santander</h1>
+      <p class="lead">
+        Dashboards e relatórios de acompanhamento do desempenho da operação Santander, com foco em qualidade, produtividade e satisfação do cliente.
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1_sg8qkD9dqbNWlRfbCWUbuYEJVopofPC=w1920-h1080" alt="Painel Gerencial Santander">
+        <div class="card-text">
+          <h2>Painel Gerencial Santander</h2>
+          <p class="description-project">
+            Painel gerencial desenvolvido para monitorar os principais indicadores de desempenho da operação, oferecendo filtros dinâmicos por data, segmento, supervisor e operador.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/u/0/reporting/c69c8c69-b265-4674-942b-e95fedffedc1/page/p_1ofswz2swd" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1S3sMqDwUzf1rMneKiWgTlREt1QKamWmY=w1920-h1080" alt="Painel Operacional Santander">
+        <div class="card-text">
+          <h2>Painel Operacional Santander</h2>
+          <p class="description-project">
+            Painel gerencial desenvolvido para monitorar os principais indicadores de desempenho da operação, oferecendo filtros dinâmicos por data, segmento, supervisor e operador.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/u/0/reporting/5223011a-db62-48c4-aa2f-da6dd8f2b729/page/p_1ofswz2swd" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+    (function(){
+      fetch('navbar.html').then(r => r.text()).then(html => {
+        const container = document.getElementById('navbar');
+        container.innerHTML = html;
+        const scripts = Array.from(container.querySelectorAll('script'));
+        scripts.forEach(s => {
+          const ns = document.createElement('script');
+          if (s.src) ns.src = s.src;
+          else ns.textContent = s.textContent;
+          document.head.appendChild(ns);
+          s.remove();
+        });
+      }).catch(err => console.error('Erro ao carregar navbar:', err));
+    })();
+    </script>
+  </body>
+</html>

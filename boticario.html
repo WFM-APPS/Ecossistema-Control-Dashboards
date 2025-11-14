@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <title>Control Dashboards | Boticário</title>
+  </head>
+  <body>
+    <div id="navbar"></div>
+
+    <div class="content">
+      <h1>Boticário</h1>
+      <p class="lead">
+        Dashboards de acompanhamento operacional e estratégico dos feedbacks Boticário. Ferramentas que consolidam os dados de performance e execução dos formulários aplicados.
+      </p>
+
+      <!-- CARD 1 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/11ukolEWXx_NU5J6_1KFa2vkVxmgdc20X=w1920-h1080" alt="Feedbacks Boticário">
+        <div class="card-text">
+          <h2>Feedbacks Boticário</h2>
+          <p class="description-project">
+            Acompanhamento dos lançamentos de feedback por cada tipo de formulário, com diversas aberturas, para garantir as metas de execuções mensais e semanais.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="#" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="card">
+        <img src="https://lh3.googleusercontent.com/d/1CsaRgg4dRxZfxojZsxJXOopfypt6klTy=w1920-h1080" alt="Boticário Resultados">
+        <div class="card-text">
+          <h2>Feedbacks Boticário</h2>
+          <p class="description-project">
+            Acompanhamento de resultados consolidados, com métricas detalhadas por equipe, tipo de atendimento e período. Visão gerencial para acompanhamento contínuo de performance.
+          </p>
+          <div class="card-actions">
+            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/2241ef8a-b49f-4686-ab85-3ca821514375/page/Sc9UF" target="_blank" rel="noopener">
+              🔗 Acessar Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+    (function(){
+      fetch('navbar.html').then(r => r.text()).then(html => {
+        const container = document.getElementById('navbar');
+        container.innerHTML = html;
+        const scripts = Array.from(container.querySelectorAll('script'));
+        scripts.forEach(s => {
+          const ns = document.createElement('script');
+          if (s.src) ns.src = s.src;
+          else ns.textContent = s.textContent;
+          document.head.appendChild(ns);
+          s.remove();
+        });
+      }).catch(err => console.error('Erro ao carregar navbar:', err));
+    })();
+    </script>
+  </body>
+</html>
