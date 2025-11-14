@@ -41,13 +41,18 @@ body { opacity: 0; animation: pageFadeIn 0.65s ease forwards 0.06s; }
 }
 
 /* ---------- BACKGROUND CANVAS ---------- */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
 #bgCanvas {
   position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-  pointer-events: none;
+  width: 100vw !important;
+  height: 100vh !important;
 }
 
 /* subtle texture overlay to add depth */
@@ -611,4 +616,5 @@ a:focus, button:focus { outline: 3px solid rgba(142,182,155,0.18); outline-offse
     font-size: 0.85rem !important;
   }
 }
+
 
