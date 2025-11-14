@@ -245,7 +245,7 @@ nav.nav-scrolled {
 
 /* ---------- CONTENT ---------- */
 .content {
-  padding: 64px var(--container-padding);
+  padding: 55px var(--container-padding);
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -254,7 +254,7 @@ nav.nav-scrolled {
 h1 {
   color: var(--text);
   font-size: clamp(2.2rem, 3.4vw, 3.6rem);
-  margin: 14px 0 30px;
+  margin: 0px 0 30px;
   letter-spacing: -0.02em;
   line-height: 1.02;
   text-align: center;
@@ -273,7 +273,7 @@ p.lead, .content p {
 
 /* ---------- HOME BUTTONS ---------- */
 .home-buttons {
-  margin-top: 65px;
+  margin-top: 53px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -616,5 +616,6 @@ a:focus, button:focus { outline: 3px solid rgba(142,182,155,0.18); outline-offse
     font-size: 0.85rem !important;
   }
 }
+
 
 
