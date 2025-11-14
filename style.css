@@ -45,7 +45,7 @@ body { opacity: 0; animation: pageFadeIn 0.65s ease forwards 0.06s; }
   position: fixed;
   inset: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   z-index: -2;
   pointer-events: none;
 }
@@ -59,6 +59,36 @@ body { opacity: 0; animation: pageFadeIn 0.65s ease forwards 0.06s; }
               radial-gradient(ellipse at 80% 80%, rgba(255,255,255,0.02), transparent 12%);
   mix-blend-mode: overlay;
   pointer-events: none;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  width: 8px;  /* largura da barra, se quiser pode deixar menor ou 0 */
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.2); /* cor do "polegar" da barra */
+  border-radius: 4px;
+  border: 2px solid transparent; /* cria espaço transparente ao redor */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent; /* fundo da barra transparente */
+}
+
+/* ---------- BOTÃO PRIMARY COM EFEITO CARD ---------- */
+
+.btn.btn-primary:hover {
+  transform: scale(1.03);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.6);
+  filter: brightness(1.08) saturate(1.05);
 }
 
 /* ---------- NAVBAR ---------- */
@@ -76,6 +106,7 @@ nav {
   top: 0;
   z-index: 40;
   backdrop-filter: blur(8px) saturate(120%);
+  transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease, transform 0.25s ease;
 }
 
 .nav-left, .nav-center, .nav-right {
@@ -185,6 +216,19 @@ nav {
 }
 .dark-toggle:hover { transform: scale(1.06); }
 
+/* ---------- NAVBAR SCROLLED EFFECT ----------
+   aplica blur/transparência/sombra quando o usuário rola
+----------------------------------------------*/
+nav {
+  transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease;
+}
+
+nav.nav-scrolled {
+  background: rgba(11, 43, 38, 0.55);
+  backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: 0 6px 30px rgba(0,0,0,0.5);
+}
+
 /* ---------- PAGE TRANSITIONS ---------- */
 .page-exit {
   animation: pageExit 0.45s ease forwards;
@@ -224,7 +268,7 @@ p.lead, .content p {
 
 /* ---------- HOME BUTTONS ---------- */
 .home-buttons {
-  margin-top: 48px;
+  margin-top: 65px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -232,10 +276,10 @@ p.lead, .content p {
 }
 
 .home-btn {
-  background: var(--surface-alt);
+  background: linear-gradient(145deg, rgba(7, 28, 25, 0.85), rgba(10, 26, 23, 0.85));
   color: var(--text);
-  padding: 20px 24px;
-  border-radius: 14px;
+  padding: 22px 28px;
+  border-radius: 20px;
   min-width: 230px;
   max-width: 320px;
   display: inline-flex;
@@ -246,9 +290,9 @@ p.lead, .content p {
   text-decoration: none;
   font-weight: 800;
   font-size: 1.05rem;
-  box-shadow: 0 10px 30px rgba(2,6,6,0.45);
-  transition: transform .28s ease, box-shadow .28s ease, filter .28s ease;
-  border: 1px solid rgba(5,31,32,0.06);
+  box-shadow: 0 14px 38px rgba(2,6,6,0.55);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, background 0.35s ease;
+  border: 1px solid rgba(142,182,155,0.2);
 }
 .home-btn img {
   width: 56px;
@@ -270,6 +314,17 @@ p.lead, .content p {
   filter: saturate(1.05);
 }
 .home-btn:active { transform: translateY(-3px); }
+
+/* efeito leve de brilho pulsante para destacar os links principais */
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 0px rgba(142,182,155,0.2); }
+  50% { box-shadow: 0 0 18px rgba(142,182,155,0.35); }
+  100% { box-shadow: 0 0 0px rgba(142,182,155,0.2); }
+}
+
+.home-btn:hover {
+  animation: pulseGlow 1.2s ease-in-out infinite;
+}
 
 /* ---------- CARDS (less dark) ---------- */
 .card {
@@ -334,15 +389,225 @@ p.lead, .content p {
   border: 1px solid rgba(255,255,255,0.03);
 }
 
-/* responsiveness */
-@media (max-width: 880px) {
-  .card img {
-    width: 100%;
-    max-width: 100%;
-    aspect-ratio: 16 / 9;
-    border-radius: 14px;
-    margin: 0;
-  }
-}
 /* accessibility focus */
 a:focus, button:focus { outline: 3px solid rgba(142,182,155,0.18); outline-offset: 2px; border-radius: 8px; }
+
+/* ==========================================================
+   RESPONSIVIDADE OTIMIZADA PARA CARDS (Zurich, Santander etc.)
+   ========================================================== */
+
+/* MOBILE ≤ 880px (já existe, mas vamos melhorar) */
+@media (max-width: 880px) {
+
+  /* Card mais fluido */
+  .card {
+    flex-direction: column;
+    padding: 0;
+    margin: 28px 0;
+  }
+
+  /* Imagem ajustando perfeitamente */
+  .card img {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin: 0;
+    border-radius: 14px 14px 0 0;
+  }
+
+  /* Texto ocupa 100% */
+  .card-text {
+    padding: 22px 18px !important;
+    text-align: center;
+  }
+}
+
+/* MOBILE ≤ 600px (otimização mais forte) */
+@media (max-width: 600px) {
+
+  .content {
+    padding: 40px 5% !important;
+  }
+
+  h1 {
+    font-size: 1.8rem !important;
+  }
+
+  .lead {
+    font-size: 0.95rem !important;
+    margin-bottom: 14px;
+  }
+
+  .card-text h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .card-text p {
+    font-size: 0.95rem !important;
+  }
+
+  .card-actions a {
+    font-size: 0.9rem !important;
+    padding: 8px 12px !important;
+  }
+}
+
+/* MOBILE ≤ 420px (telas pequenas, iPhone Mini etc.) */
+@media (max-width: 420px) {
+
+  nav {
+    padding: 12px 20px !important;
+    gap: 10px;
+  }
+
+  .nav-center {
+    gap: 14px !important;
+  }
+
+  h1 {
+    font-size: 1.6rem !important;
+  }
+}
+
+/* ==========================================================
+   NAVBAR RESPONSIVA (detalhes finos por breakpoint)
+   ========================================================== */
+
+/* --- Tablets e telas ≤ 900px --- */
+@media (max-width: 900px) {
+
+  nav {
+    padding: 12px 28px !important;
+    gap: 10px;
+  }
+
+  .nav-center {
+    gap: 18px !important;
+  }
+
+  .nav-center a {
+    font-size: 0.95rem !important;
+    padding: 6px 10px !important;
+  }
+
+  .nav-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-icon-zurich,
+  .nav-icon-santander,
+  .nav-icon-quinto {
+    width: 18px;
+    height: 18px;
+  }
+
+  .home-link img {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* --- Telas pequenas ≤ 720px (smartphones grandes) --- */
+@media (max-width: 720px) {
+
+  nav {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px 20px !important;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .nav-left,
+  .nav-right {
+    width: 100%;
+    justify-content: center;
+    order: 1;
+  }
+
+  .nav-center {
+    width: 100%;
+    order: 2;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px !important;
+    margin-top: 6px;
+  }
+
+  .nav-center a {
+    font-size: 0.9rem !important;
+    padding: 6px 8px !important;
+  }
+
+  .nav-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .home-link {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* --- Smartphones pequenos ≤ 480px --- */
+@media (max-width: 480px) {
+
+  nav {
+    padding: 8px 14px !important;
+    gap: 10px;
+  }
+
+  .nav-center {
+    gap: 12px !important;
+  }
+
+  .nav-center a {
+    font-size: 0.85rem !important;
+    padding: 5px 8px !important;
+  }
+
+  .home-link {
+    padding: 6px 10px !important;
+    font-size: 0.9rem !important;
+  }
+
+  .home-link img {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .nav-icon-zurich,
+  .nav-icon-santander,
+  .nav-icon-quinto {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* --- Smartphones muito pequenos ≤ 360px --- */
+@media (max-width: 360px) {
+
+  nav {
+    padding: 6px 12px !important;
+  }
+
+  .nav-center a {
+    font-size: 0.78rem !important;
+    padding: 4px 8px !important;
+  }
+
+  .nav-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .home-link {
+    font-size: 0.85rem !important;
+  }
+}

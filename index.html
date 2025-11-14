@@ -7,6 +7,7 @@
     <title>Control Dashboards | Home</title>
   </head>
   <body>
+    <!-- NAVBAR dinâmica -->
     <div id="navbar"></div>
 
     <!-- background canvas and subtle overlay -->
@@ -38,25 +39,150 @@
       </div>
     </div>
 
-    <!-- include helper: carrega navbar.html e executa scripts contidos -->
+    <!-- CARREGA NAVBAR + aplica JS interno -->
     <script>
     (function(){
-      fetch('navbar.html').then(r => r.text()).then(html => {
-        const container = document.getElementById('navbar');
-        container.innerHTML = html;
-        // execute scripts inside the loaded HTML
-        const scripts = Array.from(container.querySelectorAll('script'));
-        scripts.forEach(s => {
-          const ns = document.createElement('script');
-          if (s.src) ns.src = s.src;
-          else ns.textContent = s.textContent;
-          document.head.appendChild(ns);
-          s.remove();
-        });
-      }).catch(err => console.error('Erro ao carregar navbar:', err));
+      fetch('navbar.html')
+        .then(r => r.text())
+        .then(html => {
+          const container = document.getElementById('navbar');
+          container.innerHTML = html;
+
+          // executa scripts embarcados no navbar.html
+          const scripts = Array.from(container.querySelectorAll('script'));
+          scripts.forEach(s => {
+            const ns = document.createElement('script');
+            if (s.src) ns.src = s.src;
+            else ns.textContent = s.textContent;
+            document.head.appendChild(ns);
+            s.remove();
+          });
+
+          // aplica efeito de scroll
+          window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (!nav) return;
+            if (window.scrollY > 10) {
+              nav.classList.add('scrolled');
+            } else {
+              nav.classList.remove('scrolled');
+            }
+          });
+        })
+        .catch(err => console.error('Erro ao carregar navbar:', err));
     })();
     </script>
 
-    <script src="bg.js"></script>
+    <script>
+(function(){
+  const canvas = document.getElementById('bgCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w = innerWidth, h = innerHeight, t = 0;
+
+  // ===============================
+  // RESIZE
+  // ===============================
+  function resize() { w = canvas.width = innerWidth; h = canvas.height = innerHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  // ===============================
+  // UTILS
+  // ===============================
+  function hexToRgba(hex, alpha) {
+    const h = hex.replace('#','');
+    const bigint = parseInt(h, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return `rgba(${r},${g},${b},${alpha})`;
+  }
+
+  function getPalette() {
+    const cs = getComputedStyle(document.body);
+    return {
+      s: cs.getPropertyValue('--surface-alt').trim() || '#163832',
+      sa: cs.getPropertyValue('--accent').trim() || '#235347',
+      a: cs.getPropertyValue('--highlight').trim() || '#8eb69b',
+      hi: cs.getPropertyValue('--text').trim() || '#daf1de'
+    };
+  }
+
+  // ===============================
+  // STARS
+  // ===============================
+  const STAR_COUNT = 120;
+  const stars = [];
+  class Star {
+    constructor() { this.reset(); }
+    reset() {
+      this.x = Math.random() * w;
+      this.y = Math.random() * h;
+      this.size = Math.random() * 2;
+      this.speed = 0.2 + Math.random() * 0.5;
+      this.alpha = 0.3 + Math.random() * 0.7;
+    }
+    update() {
+      this.y -= this.speed;
+      if (this.y < 0) this.reset();
+    }
+    draw() {
+      ctx.globalAlpha = this.alpha;
+      ctx.fillStyle = "#fff";
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+  }
+  for (let i=0;i<STAR_COUNT;i++) stars.push(new Star());
+
+  // ===============================
+  // WAVES
+  // ===============================
+  function drawWave(offset, amp, freq, color, speed) {
+    ctx.beginPath();
+    ctx.moveTo(0, h);
+    for (let x=0; x<=w; x+=12) {
+      const y = h*0.6 + Math.sin(x*freq + t*speed + offset)*amp + Math.cos(x*(freq*0.6)+t*speed*0.7)*(amp*0.4);
+      ctx.lineTo(x, y);
+    }
+    ctx.lineTo(w, h);
+    ctx.closePath();
+    ctx.fillStyle = color;
+    ctx.fill();
+  }
+
+  // ===============================
+  // ANIMATION
+  // ===============================
+  function animate() {
+    t += 0.018;
+    ctx.clearRect(0,0,w,h);
+    
+    const pal = getPalette();
+
+    // 1️⃣ Waves
+    drawWave(120, 44, 0.011, hexToRgba(pal.hi, 0.06), 1.0);
+    drawWave(20, 88, 0.009, hexToRgba(pal.a, 0.055), 0.75);
+    drawWave(-60, 140, 0.007, hexToRgba(pal.sa, 0.05), 0.6);
+
+    // 2️⃣ Stars
+    stars.forEach(star => { star.update(); star.draw(); });
+
+    requestAnimationFrame(animate);
+  }
+
+  // start animation
+  animate();
+
+  // re-read palette on theme change
+  new MutationObserver(()=>{}).observe(document.body, { attributes:true, attributeFilter:['class'] });
+
+})();
+</script>
+
+
   </body>
 </html>

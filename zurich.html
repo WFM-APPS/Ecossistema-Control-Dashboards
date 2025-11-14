@@ -7,8 +7,10 @@
     <title>Control Dashboards | Zurich</title>
   </head>
   <body>
+    <!-- NAVBAR dinâmica -->
     <div id="navbar"></div>
 
+    <canvas id="bgCanvas"></canvas>
     <div class="content">
       <h1>Zurich</h1>
       <p class="lead">
@@ -24,7 +26,9 @@
             Painel gerencial desenvolvido para monitorar os principais indicadores de desempenho da operação, oferecendo filtros dinâmicos por data, segmento, supervisor e operador.
           </p>
           <div class="card-actions">
-            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/3392984d-981d-44ff-bdad-f09047957de6/page/p_47afxom4sd" target="_blank" rel="noopener">
+            <a class="btn btn-primary" 
+               href="https://lookerstudio.google.com/reporting/3392984d-981d-44ff-bdad-f09047957de6/page/p_47afxom4sd" 
+               target="_blank" rel="noopener">
               🔗 Acessar Dashboard
             </a>
           </div>
@@ -40,7 +44,9 @@
             Painel individual de performance que consolida os resultados e o atingimento das metas de cada colaborador, permitindo filtros por data e tipo de retenção.
           </p>
           <div class="card-actions">
-            <a class="btn btn-primary" href="https://lookerstudio.google.com/reporting/9624c937-cd30-4586-9dd4-09a16b4a4b20/page/IcMTF" target="_blank" rel="noopener">
+            <a class="btn btn-primary" 
+               href="https://lookerstudio.google.com/reporting/9624c937-cd30-4586-9dd4-09a16b4a4b20/page/IcMTF" 
+               target="_blank" rel="noopener">
               🔗 Acessar Dashboard
             </a>
           </div>
@@ -49,21 +55,93 @@
 
     </div>
 
+    <!-- Carrega NAVBAR + ativa efeito de scroll -->
     <script>
     (function(){
-      fetch('navbar.html').then(r => r.text()).then(html => {
-        const container = document.getElementById('navbar');
-        container.innerHTML = html;
-        const scripts = Array.from(container.querySelectorAll('script'));
-        scripts.forEach(s => {
-          const ns = document.createElement('script');
-          if (s.src) ns.src = s.src;
-          else ns.textContent = s.textContent;
-          document.head.appendChild(ns);
-          s.remove();
-        });
-      }).catch(err => console.error('Erro ao carregar navbar:', err));
+      fetch('navbar.html')
+        .then(r => r.text())
+        .then(html => {
+          const container = document.getElementById('navbar');
+          container.innerHTML = html;
+
+          // executa scripts internos da navbar carregada
+          const scripts = Array.from(container.querySelectorAll('script'));
+          scripts.forEach(s => {
+            const ns = document.createElement('script');
+            if (s.src) ns.src = s.src;
+            else ns.textContent = s.textContent;
+            document.head.appendChild(ns);
+            s.remove();
+          });
+
+          // ativa o efeito de scroll (blur + background)
+          window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (!nav) return;
+
+            if (window.scrollY > 10) {
+              nav.classList.add('scrolled');
+            } else {
+              nav.classList.remove('scrolled');
+            }
+          });
+
+        })
+        .catch(err => console.error('Erro ao carregar navbar:', err));
     })();
     </script>
+    <script>
+      const canvas = document.getElementById("bgCanvas");
+      const ctx = canvas.getContext("2d");
+      let stars = [];
+      const STAR_COUNT = 120;
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      class Star {
+        constructor() {
+          this.reset();
+        }
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 2;
+          this.speed = 0.2 + Math.random() * 0.5;
+          this.alpha = 0.3 + Math.random() * 0.7;
+        }
+        update() {
+          this.y -= this.speed;
+          if (this.y < 0) this.reset();
+        }
+        draw() {
+          ctx.globalAlpha = this.alpha;
+          ctx.fillStyle = "#fff";
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push(new Star());
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        stars.forEach(star => {
+          star.update();
+          star.draw();
+        });
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+  </script>
+
   </body>
 </html>

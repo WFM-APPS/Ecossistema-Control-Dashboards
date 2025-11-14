@@ -53,7 +53,7 @@
 </nav>
 
 <script>
-(function() {
+(function () {
   const MAX_TRIES = 12;
   const TRY_INTERVAL_MS = 100;
 
@@ -64,26 +64,34 @@
   }
 
   function init() {
-    const links = document.querySelectorAll('a[href]');
-    if (!links || links.length === 0) return false;
+    const links = document.querySelectorAll('nav a[href$=".html"], nav a[href="index.html"]');
+
+    if (!links || links.length === 0) {
+      console.warn('[NAVBAR] Nenhum link .html encontrado — aguardando elemento.');
+      return false;
+    }
+
+    const current = normalizeUrl(window.location.pathname.split('/').pop() || 'index.html');
 
     links.forEach(link => {
+      // Remove handler anterior
       link.removeEventListener('click', link.__nav_handler__);
+
+      // Cria novo handler
       const handler = handleClickWrapper.bind(link);
       link.__nav_handler__ = handler;
       link.addEventListener('click', handler);
+
+      // ➤ Destacar página atual
+      const linkTarget = normalizeUrl(link.getAttribute('href') || "");
+
+      if (linkTarget === current) {
+        link.style.color = 'var(--highlight)';
+        link.style.textShadow = '0 4px 18px rgba(0,0,0,0.45)';
+      }
     });
 
-    const currentPage = (window.location.pathname || '').split('/').pop() || 'index.html';
-    links.forEach(link => {
-      try {
-        const href = link.getAttribute('href');
-        if (href && href.includes(currentPage)) {
-          link.style.color = 'var(--highlight)';
-          link.style.textShadow = '0 4px 18px rgba(0,0,0,0.45)';
-        }
-      } catch (err) { console.debug('[NAVBAR] destaque erro', err); }
-    });
+    console.info('[NAVBAR] Inicializado com sucesso.');
     return true;
   }
 
@@ -91,34 +99,43 @@
     try {
       window.top.location.href = url;
       return true;
-    } catch (err) { return false; }
+    } catch (err) {
+      return false;
+    }
   }
 
   function tryOpenTop(url) {
     try {
       const win = window.open(url, '_top');
       return !!win;
-    } catch (err) { return false; }
+    } catch (err) {
+      return false;
+    }
   }
 
   function tryLocalAssign(url) {
     try {
       window.location.href = url;
       return true;
-    } catch (err) { return false; }
+    } catch (err) {
+      return false;
+    }
   }
 
   function handleClickWrapper(e) {
     e.preventDefault();
+
     try {
-      const pageParam = this.getAttribute('href') || '';
-      const base = window.location.origin + window.location.pathname.replace(/[^\/]*$/, '');
-      const targetUrl = new URL(pageParam, base).toString();
+      const targetUrl = this.getAttribute('href');
+      if (!targetUrl) return;
 
       const normTarget = normalizeUrl(targetUrl);
-      const normCurrent = normalizeUrl(window.location.href || '');
+      const current = normalizeUrl(window.location.pathname.split('/').pop() || "");
 
-      if (normTarget === normCurrent) return;
+      if (normTarget === current) {
+        console.debug('[NAVBAR] já estamos nesta página:', normTarget);
+        return;
+      }
 
       document.body.classList.add('page-exit');
 
@@ -126,13 +143,15 @@
         if (tryNavigateTop(targetUrl)) return;
         if (tryOpenTop(targetUrl)) return;
         if (tryLocalAssign(targetUrl)) return;
-        try { window.alert('Não foi possível navegar automaticamente. Copie e cole esta URL:\\n' + targetUrl); } catch (e) {}
-      }, 420);
+
+        alert('Não foi possível navegar automaticamente. Acesse:\n' + targetUrl);
+      }, 300);
+
     } catch (err) {
+      console.error('[NAVBAR] erro inesperado:', err);
       try {
-        const pageParam = this.getAttribute('href') || '';
-        window.location.href = pageParam;
-      } catch (e) {}
+        window.location.href = this.getAttribute('href');
+      } catch (e) { }
     }
   }
 
@@ -141,14 +160,17 @@
     function attempt() {
       tries++;
       const ok = init();
-      if (!ok && tries < MAX_TRIES) setTimeout(attempt, TRY_INTERVAL_MS);
+      if (!ok && tries < MAX_TRIES) {
+        setTimeout(attempt, TRY_INTERVAL_MS);
+      } else if (!ok) {
+        console.error('[NAVBAR] falhou após várias tentativas');
+      }
     }
 
-    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
       attempt();
     } else {
-      document.addEventListener('DOMContentLoaded', attempt, { once: true });
-      setTimeout(() => { if (document.readyState !== 'complete' && document.readyState !== 'interactive') attempt(); }, 200);
+      document.addEventListener("DOMContentLoaded", attempt, { once: true });
     }
   }
 
