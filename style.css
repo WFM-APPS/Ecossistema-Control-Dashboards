@@ -57,6 +57,7 @@ html, body {
   pointer-events: none;
 }
 
+
 /* subtle texture overlay to add depth */
 .bg-overlay {
   position: fixed;
@@ -105,7 +106,7 @@ nav {
   justify-content: space-between;
   gap: 16px;
   height: var(--nav-height);
-  padding: 10px 56px;
+  padding: 14px 56px;
   background: linear-gradient(90deg, rgba(11,43,38,0.20), rgba(22,56,50,0.10));
   border-bottom: 1px solid rgba(255,255,255,0.02);
   box-shadow: 0 8px 30px rgba(2,6,6,0.55);
@@ -247,7 +248,7 @@ nav.nav-scrolled {
 
 /* ---------- CONTENT ---------- */
 .content {
-  padding: 42px var(--container-padding);
+  padding: 64px var(--container-padding);
   max-width: 1200px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -256,7 +257,7 @@ nav.nav-scrolled {
 h1 {
   color: var(--text);
   font-size: clamp(2.2rem, 3.4vw, 3.6rem);
-  margin: 0px 0 30px;
+  margin: 14px 0 30px;
   letter-spacing: -0.02em;
   line-height: 1.02;
   text-align: center;
@@ -275,7 +276,7 @@ p.lead, .content p {
 
 /* ---------- HOME BUTTONS ---------- */
 .home-buttons {
-  margin-top: 53px;
+  margin-top: 65px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -406,6 +407,11 @@ p.lead, .content p {
   background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
   color: var(--text);
   border: 1px solid rgba(255,255,255,0.03);
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
 }
 
 /* accessibility focus */
@@ -630,10 +636,3 @@ a:focus, button:focus { outline: 3px solid rgba(142,182,155,0.18); outline-offse
     font-size: 0.85rem !important;
   }
 }
-
-
-
-
-
-
-
