@@ -50,7 +50,6 @@ html, body {
 
 #bgCanvas {
   position: fixed;
-  inset: 0;
   width: 100vw;
   height: 100vh;
   z-index: -2;
@@ -106,7 +105,7 @@ nav {
   justify-content: space-between;
   gap: 16px;
   height: var(--nav-height);
-  padding: 14px 56px;
+  padding: 5px 56px;
   background: linear-gradient(90deg, rgba(11,43,38,0.20), rgba(22,56,50,0.10));
   border-bottom: 1px solid rgba(255,255,255,0.02);
   box-shadow: 0 8px 30px rgba(2,6,6,0.55);
@@ -276,9 +275,9 @@ p.lead, .content p {
 
 /* ---------- HOME BUTTONS ---------- */
 .home-buttons {
-  margin-top: 65px;
+  margin-top: 90px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   gap: 28px;
 }
@@ -286,7 +285,7 @@ p.lead, .content p {
 .home-btn {
   background: linear-gradient(145deg, rgba(7, 28, 25, 0.85), rgba(10, 26, 23, 0.85));
   color: var(--text);
-  padding: 22px 28px;
+  padding: 14px 22px;
   border-radius: 20px;
   min-width: 230px;
   max-width: 320px;
@@ -302,6 +301,14 @@ p.lead, .content p {
   transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease, background 0.35s ease;
   border: 1px solid rgba(142,182,155,0.2);
 }
+
+.home-btn img.LG {
+  width: 70px;
+  height: 70px;
+  margin-bottom: 10px;
+  filter: none;
+}
+
 .home-btn img {
   width: 56px;
   height: 56px;
