@@ -50,12 +50,12 @@ html, body {
 
 #bgCanvas {
   position: fixed;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   z-index: -2;
   pointer-events: none;
 }
-
 
 /* subtle texture overlay to add depth */
 .bg-overlay {
@@ -276,10 +276,12 @@ p.lead, .content p {
 /* ---------- HOME BUTTONS ---------- */
 .home-buttons {
   margin-top: 90px;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
   gap: 28px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .home-btn {
@@ -287,8 +289,8 @@ p.lead, .content p {
   color: var(--text);
   padding: 14px 22px;
   border-radius: 20px;
-  min-width: 230px;
-  max-width: 320px;
+  width: 100%;
+  min-width: 0;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -643,3 +645,4 @@ a:focus, button:focus { outline: 3px solid rgba(142,182,155,0.18); outline-offse
     font-size: 0.85rem !important;
   }
 }
+
