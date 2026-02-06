@@ -105,7 +105,7 @@ nav {
   justify-content: space-between;
   gap: 16px;
   height: var(--nav-height);
-  padding: 5px 56px;
+  padding: 14px 56px;
   background: linear-gradient(90deg, rgba(11,43,38,0.20), rgba(22,56,50,0.10));
   border-bottom: 1px solid rgba(255,255,255,0.02);
   box-shadow: 0 8px 30px rgba(2,6,6,0.55);
@@ -275,22 +275,21 @@ p.lead, .content p {
 
 /* ---------- HOME BUTTONS ---------- */
 .home-buttons {
-  margin-top: 90px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  margin-top: 65px;
+  display: flex;
+  flex-wrap: nowrap;  
+  justify-content: center;
   gap: 28px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .home-btn {
   background: linear-gradient(145deg, rgba(7, 28, 25, 0.85), rgba(10, 26, 23, 0.85));
   color: var(--text);
-  padding: 14px 22px;
+  flex: 0 0 auto;
+  padding: 22px 28px;
   border-radius: 20px;
-  width: 100%;
-  min-width: 0;
+  min-width: 230px;
+  max-width: 300px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -645,4 +644,3 @@ a:focus, button:focus { outline: 3px solid rgba(142,182,155,0.18); outline-offse
     font-size: 0.85rem !important;
   }
 }
-
