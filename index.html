@@ -89,13 +89,23 @@
   // ===============================
     let w, h, t = 0;
 
-    function resize() {
-      const cw = document.documentElement.clientWidth;
-      const ch = document.documentElement.clientHeight;
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
 
-      w = canvas.width = cw;
-      h = canvas.height = ch;
-    }
+    const cw = document.documentElement.clientWidth;
+    const ch = document.documentElement.clientHeight;
+
+    canvas.style.width  = cw + 'px';
+    canvas.style.height = ch + 'px';
+
+    canvas.width  = Math.floor(cw * dpr);
+    canvas.height = Math.floor(ch * dpr);
+
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    w = cw;
+    h = ch;
+  }
     window.addEventListener('resize', resize);
     resize();
 
@@ -199,7 +209,6 @@
 
   </body>
 </html>
-
 
 
 
